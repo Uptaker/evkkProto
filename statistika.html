@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<script src="https://kit.fontawesome.com/6377da5ebe.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>EVKK</title>
+</head>
+<body>
+
+	<header>
+		<!-- Logo -->
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" alt="TLU"></a>
+			<a href="index.html"><h1>Eesti Vahekeele Korpus</h1></a>
+		</div>
+
+		<!-- Navigation -->
+		<section class="navContainer">
+			<nav>
+				<a href="home.html">Avaleht</a>
+				<a href="index.html" class="activeNav">Statistika</a>
+				<a href="paring.html">Päring</a>
+				<a href="meist.html">Meist</a>
+				<a href="kontakt.html">Kontakt</a>
+			</nav>
+		</section>
+	</header>
+
+
+	<!-- Interactive stats section -->
+	<section>
+
+		<!-- Filters (left side) -->
+		<div class="dropdown">
+			<h2>Alamkorpused</h2>
+			<form>
+					<!-- Buttons to check or uncheck everything -->
+					<div id="buttons">
+						<button type="button" id="selectAllKorpus">Kõik</button>
+						<button type="button" id="unselectAllKorpus">Eemalda</button>
+					</div>
+
+					<!-- Korpus selection -->
+					<div id="korpusSelection">
+						<input type="checkbox" name="korpus"
+						value="cFqPphvYi" class="btn-check" id="btn-check0" autocomplete="off" checked/>
+						<label class="checkbox" for="btn-check0"><i class="fas fa-check"></i><span>Eesti keele olümpiaadi tööd</span></label>
+						
+						<input type="checkbox" name="korpus"
+						value="cwUSEqQLt" type="checkbox" class="btn-check" id="btn-check2" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check2"><i class="fas fa-check"></i></i><span>Akadeemiline õppijakeel</span></label>
+						
+						<input type="checkbox" name="korpus"
+						value="cwUprXCTL" class="btn-check" id="btn-check3" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check3"><i class="fas fa-check"></i><span>Eesti teaduskeel</span></label>
+	
+						<input type="checkbox" name="korpus"
+						value="cFOoRQekA" class="btn-check" id="btn-check4" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check4"><i class="fas fa-check"></i><span>EVKK</span></label>
+	
+						<input type="checkbox" name="korpus"
+						value="clWmOIrLa" class="btn-check" id="btn-check5" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check5"><i class="fas fa-check"></i><span>REKKi kogud</span></label>
+	
+						<input type="checkbox" name="korpus"
+						value="cZjHWUPtD" class="btn-check" id="btn-check6" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check6"><i class="fas fa-check"></i><span>Vene keel kui võõrkeel</span></label>
+	
+						<input type="checkbox" name="korpus"
+						value="cgSRJPKTr" class="btn-check" id="btn-check7" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check7"><i class="fas fa-check"></i><span>Vene keel kui emakeel</span></label>
+	
+						<input type="checkbox" name="korpus"
+						value="cYDRkpymb" class="btn-check" id="btn-check8" autocomplete="off" checked/>
+						<label class="checkbox"  for="btn-check8"><i class="fas fa-check"></i><span>K1 referentskorpus</span></label>
+					</div>
+				</form>
+
+				<!-- Filter selection -->
+				<h2>Filter</h2>
+				<select id="filterBy" name="filterBy">
+					<option value="vanus">Vanus</option>
+					<option value="haridus">Haridus</option>
+					<option value="sugu">Sugu</option>
+					<option value="elukoht">Elukoht</option>
+
+					<option value="kodukeel">Kodune keel</option>
+					<option value="emakeel">Emakeel</option>
+					<option value="tekstikeel">Tekstikeel</option>
+					<option value="abivahendid">Abivahendid</option>
+
+					<option value="taust">Sotsiaalne staatus</option>
+					<option value="keeletase">Keele valdamise tase</option>
+					<option value="tekstikeel">Tekstikeel</option>
+					<option value="tekstityyp">Tekstitüüp</option>
+				</select>
+		</div>
+
+		<!-- Stats (right side) -->
+		<div class="stats">
+			<h2>Tekstid vanuse järgi</h2>
+			<div id="alamkorpused" class="echarts"></div>
+		</div>
+	</section>
+
+	<!-- Mini stats -->
+	<section class="miniStats">
+		<p>Dokumente<br><span id="documents"></span></p>
+		<p>Lauseid<br><span id="sentences"></span></p>
+		<p>Sõnu<br><span id="words"></span></p>
+	</section>
+
+
+	<section>
+			<div class="dropdown">
+				<h2>Tekstide keel</h2>
+
+				<!-- This table doesn't do anything and has fake data, delete? -->
+				<table class="GeneratedTable">
+					<thead>
+					<tr>
+						<th>Keel</th>
+						<th>%</th>
+						<th>Summa</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>Eesti keel</td>
+						<td>43%</td>
+						<td>23431</td>
+					</tr>
+					<tr>
+						<td>Vene keel</td>
+						<td>37%</td>
+						<td>19435</td>
+					</tr>
+					<tr>
+						<td>Soome keel</td>
+						<td>5%</td>
+						<td>432</td>
+					</tr>
+					<tr>
+						<td>Inglise keel</td>
+						<td>5%</td>
+						<td>423</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Pie chart example, has correct data -->
+			<div class="stats">
+				<h2>Tekstide keel (%)</h2>
+				<div id="languagePercentage" class="echarts"></div>
+			</div>
+	</section>
+
+	<!-- Footer -->
+	<section>
+		<footer>
+			<p>TLU 2021</p>
+		</footer>
+	</section>
+
+	<!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="scripts/echarts.js"></script>
+	<script src="scripts/stats.js"></script>
+
+</body>
+</html>
