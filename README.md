@@ -27,7 +27,7 @@ Sul peab olema Kippari keelekorpus.sql.zip, seda leiate [siin](http://www.tlu.ee
 
 ### Mis failid teevad mida
 
-Olen kommenteerinud koodis iga funktsiooni, vaadake üle ja katsetage saara aru xd.
+Olen kommenteerinud koodis iga funktsiooni, vaadake üle ja katsetage aru saada xd.
 
 #### db
 - db.php - sisaldab andmebaasi ühendamiseks andmed (user, pass etc)
