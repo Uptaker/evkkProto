@@ -225,8 +225,25 @@ async function fetchLanguagePercentage() {
     }
 }
 
+// AJAX boxplot test
+async function fetchWordType() {
+    let result;
+    try {
+        result = await $.ajax({
+            url: "db/server.php",
+            type: "POST",
+            data: { fetchWordType: true },
+            dataType: 'JSON',
+        });
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 // Echarts code
 function loadStats(data) {
+
     let ages = []
     let filterData = data;
 
@@ -350,7 +367,7 @@ function loadStats(data) {
                 }
             },
             {
-                show: false,
+                // show: false,
                 type: 'value',
                 name: 'Tekste',
                 position: 'right',
@@ -367,7 +384,7 @@ function loadStats(data) {
                 }
             },
             {
-                show: false,
+                // show: false,
                 type: 'value',
                 name: 'Sõnu',
                 position: 'right',
@@ -384,7 +401,7 @@ function loadStats(data) {
                 }
             },
             {
-                show: false,
+                // show: false,
                 type: 'value',
                 name: 'Lauseid',
                 position: 'left',
@@ -400,7 +417,7 @@ function loadStats(data) {
                 // }
             },
             {
-                show: false,
+                // show: false,
                 type: 'value',
                 name: 'Vigu',
                 position: 'left',
@@ -417,7 +434,7 @@ function loadStats(data) {
                 }
             },
             {
-                show: false,
+                // show: false,
                 type: 'value',
                 name: 'Veatüüpe',
                 position: 'left',
@@ -537,5 +554,182 @@ function loadLanguagePercentage(data) {
     };
 
     option && myChart.setOption(option);
+}
+
+loadBoxplot();
+
+function loadBoxplot() {
+
+    var chartDom = document.getElementById('boxplot');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+
+    let rawData = [
+        [
+            "Income",
+            "Life Expectancy",
+            "Population",
+            "Country",
+            "Year"
+        ],
+        [
+            815,
+            34.05,
+            351014,
+            "Australia",
+            1800
+        ],
+        [
+            1314,
+            39,
+            645526,
+            "Canada",
+            1800
+        ],
+        [
+            985,
+            32,
+            321675013,
+            "China",
+            1800
+        ],
+        [
+            864,
+            32.2,
+            345043,
+            "Cuba",
+            1800
+        ],
+        [
+            1244,
+            36.5731262,
+            977662,
+            "Finland",
+            1800
+        ],
+        [
+            1803,
+            33.96717024,
+            29355111,
+            "France",
+            1800
+        ]
+    ];
+
+
+    echarts.registerTransform(window.ecSimpleTransform.aggregate);
+
+    option = {
+        dataset: [{
+            id: 'raw',
+            source: rawData
+        }, {
+            id: 'since_year',
+            fromDatasetId: 'raw',
+            transform: [{
+                type: 'filter',
+                config: {
+                    dimension: 'Year', gte: 1950
+                }
+            }]
+        }, {
+            id: 'income_aggregate',
+            fromDatasetId: 'since_year',
+            transform: [{
+                type: 'ecSimpleTransform:aggregate',
+                config: {
+                    resultDimensions: [
+                        { name: 'min', from: 'Income', method: 'min' },
+                        { name: 'Q1', from: 'Income', method: 'Q1' },
+                        { name: 'median', from: 'Income', method: 'median' },
+                        { name: 'Q3', from: 'Income', method: 'Q3' },
+                        { name: 'max', from: 'Income', method: 'max' },
+                        { name: 'Country', from: 'Country' }
+                    ],
+                    groupBy: 'Country'
+                }
+            }, {
+                type: 'sort',
+                config: {
+                    dimension: 'Q3',
+                    order: 'asc'
+                }
+            }]
+        }],
+        title: {
+            text: 'Income since 1950'
+        },
+        tooltip: {
+            trigger: 'axis',
+            confine: true
+        },
+        xAxis: {
+            name: 'Income',
+            nameLocation: 'middle',
+            nameGap: 30,
+            scale: true,
+        },
+        yAxis: {
+            type: 'category'
+        },
+        grid: {
+            bottom: 100
+        },
+        legend: {
+            selected: { detail: false }
+        },
+        dataZoom: [{
+            type: 'inside'
+        }, {
+            type: 'slider',
+            height: 20,
+        }],
+        series: [{
+            name: 'boxplot',
+            type: 'boxplot',
+            datasetId: 'income_aggregate',
+            itemStyle: {
+                color: '#b8c5f2'
+            },
+            encode: {
+                x: ['min', 'Q1', 'median', 'Q3', 'max'],
+                y: 'Country',
+                itemName: ['Country'],
+                tooltip: ['min', 'Q1', 'median', 'Q3', 'max']
+            }
+        }, {
+            name: 'detail',
+            type: 'scatter',
+            datasetId: 'since_year',
+            symbolSize: 6,
+            tooltip: {
+                trigger: 'item'
+            },
+            label: {
+                show: true,
+                position: 'top',
+                align: 'left',
+                verticalAlign: 'middle',
+                rotate: 90,
+                fontSize: 12
+            },
+            itemStyle: {
+                color: '#d00000'
+            },
+            encode: {
+                x: 'Income',
+                y: 'Country',
+                label: 'Year',
+                itemName: 'Year',
+                tooltip: ['Country', 'Year', 'Income']
+            }
+        }]
+    };
+
+    myChart.setOption(option);
+
+    option && myChart.setOption(option);
+
 }
 

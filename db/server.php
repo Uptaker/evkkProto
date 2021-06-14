@@ -1,5 +1,25 @@
 <?php
 
+
+
+// Fetches word type
+if (isset($_POST["fetchWordType"])) {
+    $fetch = "A";
+    $sql = "SELECT
+    MIN($fetch), MAX($fetch),
+    SELECT
+        (
+        (SELECT MAX(Score) FROM
+        (SELECT TOP 50 PERCENT Score FROM Posts ORDER BY Score) AS BottomHalf)
+        +
+        (SELECT MIN(Score) FROM
+        (SELECT TOP 50 PERCENT Score FROM Posts ORDER BY Score DESC) AS TopHalf)
+        ) / 2 AS Median
+    FROM doksonaliigid 
+    GROUP BY $fetch";
+    fetchJSON($sql);
+}
+
 // Fetches data from ALL korpuses
 if (isset($_POST["fetchAll"]) && isset($_POST["fetchValue"])) {
     $fetch = "dokmeta." .$_POST["fetchValue"];
