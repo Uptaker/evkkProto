@@ -1,8 +1,6 @@
 # EVKK Proto paigaldamise juhend
 Eesti Vahekeele Korpuse prototüüp
 
-Videoõpetus -> https://www.youtube.com/watch?v=-OU3s2sYv1M
-
 ### XAMPP või mingi muu riistvara
 
 XAMPP on rakendus, mis paigaldab su arvutisse kõikvajalikud tööriistad, et jooksutada PHP + MySQL + phpMyAdmin serveri
